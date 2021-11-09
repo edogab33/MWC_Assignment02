@@ -92,6 +92,19 @@ public class HomeFragment extends Fragment {
         listener = new StepCounterListener(database, stepsCountTextView, stepsCountProgressBar);
 
 
+        // Insert sample data in the database
+        ContentValues values = new ContentValues();
+        values.put(StepAppOpenHelper.KEY_TIMESTAMP, "2021-11-08 13:00:00");
+        values.put(StepAppOpenHelper.KEY_DAY, "Tuesday");
+        values.put(StepAppOpenHelper.KEY_HOUR, "13:00");
+        database.insert(StepAppOpenHelper.TABLE_NAME, null, values);
+
+        values.put(StepAppOpenHelper.KEY_TIMESTAMP, "2021-11-09 11:00:00");
+        values.put(StepAppOpenHelper.KEY_DAY, "Wednesday");
+        values.put(StepAppOpenHelper.KEY_HOUR, "11:00");
+        database.insert(StepAppOpenHelper.TABLE_NAME, null, values);
+
+
 
         // Toggle group button
         materialButtonToggleGroup = (MaterialButtonToggleGroup) root.findViewById(R.id.toggleButtonGroup);
