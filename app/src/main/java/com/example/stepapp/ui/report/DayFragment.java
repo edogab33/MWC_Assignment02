@@ -60,48 +60,34 @@ public class DayFragment extends Fragment {
     }
 
     public Cartesian createColumnChart() {
-        //***** Read data from SQLiteDatabase *********/
-        // TODO 1: Get the map with hours and number of steps for today
-        //  from the database and initialize it to variable stepsByHour
         stepsByDay = StepAppOpenHelper.loadStepsByDay(getContext());
 
-        //***** Create column chart using AnyChart library *********/
-        // 1. Create and get the cartesian coordinate system for column chart
         Cartesian cartesian = AnyChart.column();
 
-        // 2. Create data entries for x and y axis of the graph
         List<DataEntry> data = new ArrayList<>();
 
         for (Map.Entry<String,Integer> entry : stepsByDay.entrySet())
             data.add(new ValueDataEntry(entry.getKey(), entry.getValue()));
 
-        // 3. Add the data to column chart and get the columns
         Column column = cartesian.column(data);
 
-        //***** Modify the UI of the chart *********/
-        // TODO 4. Change the color of column chart and its border
         column.fill("#1EB980");
         column.stroke("#1EB980");
 
-        //Modifying properties of tooltip
         column.tooltip()
                 .titleFormat("At hour: {%X}")
                 .format("{%Value}{groupsSeparator: } Steps")
                 .anchor(Anchor.RIGHT_TOP);
 
-        // TODO 5: Modify column chart tooltip properties
         column.tooltip()
                 .position(Position.RIGHT_TOP)
                 .offsetX(0d)
                 .offsetY(5);
 
-        // Modifying properties of cartesian
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
         cartesian.interactivity().hoverMode(HoverMode.BY_X);
         cartesian.yScale().minimum(0);
 
-
-        // TODO 6: Modify the UI of the cartesian
         cartesian.yAxis(0).title("Number of steps");
         cartesian.xAxis(0).title("Day");
         cartesian.background().fill("#00000000");
